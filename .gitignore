@@ -21,7 +21,10 @@ server/venv/
 .env.*
 !.env.example
 *.pem
+!keys/update-public.pem
 *.key
+installer/packages/fi.vapepa.amalia/data/
+AmaliaSetup.exe
 updates/stable/*/*
 updates/test/*/*
 !updates/README.md
