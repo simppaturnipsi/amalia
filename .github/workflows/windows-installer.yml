@@ -43,6 +43,11 @@ jobs:
           "OPENSSL_ROOT_DIR=$($crypto.Directory.Parent.FullName)" >> $env:GITHUB_ENV
           "BINARYCREATOR=$($binaryCreator.FullName)" >> $env:GITHUB_ENV
 
+      - name: Enable Visual Studio 2022 x64 compiler
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
       - name: Build and install QtKeychain
         shell: pwsh
         run: |
