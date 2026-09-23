@@ -1,0 +1,11 @@
+{
+  "apiBaseUrl": "https://ilona.ad.vapepa.info/amalia/api/v1/",
+  "webSocketBaseUrl": "wss://ilona.ad.vapepa.info/amalia/ws/",
+  "oidc": {
+    "issuer": "https://ilona.vapepa.info/realms/amalia",
+    "authorizationEndpoint": "https://ilona.vapepa.info/realms/amalia/protocol/openid-connect/auth",
+    "tokenEndpoint": "https://ilona.vapepa.info/realms/amalia/protocol/openid-connect/token",
+    "clientId": "amalia-desktop",
+    "scope": "openid profile offline_access"
+  }
+}

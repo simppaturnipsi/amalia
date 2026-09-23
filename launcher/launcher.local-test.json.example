@@ -1,0 +1,11 @@
+{
+  "repositoryBaseUrl": "file:///absolute/path/to/amalia/updates/",
+  "channel": "test",
+  "publicKey": "/absolute/path/to/update-public-key.pem",
+  "installRoot": "@USER_DATA@",
+  "bootstrapVersion": "2026.08.8",
+  "bootstrapExecutable": "/absolute/path/to/amalia-desktop",
+  "startupTimeoutSeconds": 20,
+  "maxDownloadBytes": 1073741824,
+  "allowLocalTestRepository": true
+}

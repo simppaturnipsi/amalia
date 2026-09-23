@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Amalia
+Comment=Vapepa desktop workspace
+Exec=/usr/bin/amalia-launcher
+Icon=amalia
+Terminal=false
+Categories=Utility;
+StartupNotify=true

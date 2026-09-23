@@ -1,0 +1,10 @@
+{
+  "version": "2026.08.8",
+  "channel": "stable",
+  "platform": "ubuntu",
+  "file": "stable/ubuntu/amalia-2026.08.8-ubuntu.zip",
+  "sha256": "REPLACE_WITH_64_HEX_CHARACTERS",
+  "signature": "REPLACE_WITH_BASE64_ED25519_SIGNATURE",
+  "minimum_supported_version": "0.1.0",
+  "mandatory": false
+}

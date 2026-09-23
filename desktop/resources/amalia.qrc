@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/">
+    <file>apps.json</file>
+    <file>amalia.json</file>
+    <file>icons/amalia.svg</file>
+    <file>icons/ohto.svg</file>
+    <file>icons/map.svg</file>
+    <file>icons/admin.svg</file>
+    <file>icons/monitor.svg</file>
+    <file>icons/journal.svg</file>
+  </qresource>
+</RCC>

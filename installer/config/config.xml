@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+  <Name>Amalia</Name>
+  <Version>2026.08.8</Version>
+  <Title>Amalia Setup</Title>
+  <Publisher>Vapepa</Publisher>
+  <StartMenuDir>Amalia</StartMenuDir>
+  <TargetDir>@ApplicationsDir@/Amalia</TargetDir>
+  <RunProgram>@TargetDir@/bin/amalia-launcher.exe</RunProgram>
+  <RunProgramDescription>Start Amalia Launcher</RunProgramDescription>
+  <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+  <MaintenanceToolName>AmaliaMaintenance</MaintenanceToolName>
+</Installer>

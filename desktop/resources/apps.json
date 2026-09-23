@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "applications": [
+    {
+      "id": "ohto",
+      "name": "Ohto",
+      "type": "web",
+      "url": "https://ohto.vapepa.fi/",
+      "icon": ":/icons/ohto.svg",
+      "defaultSize": [1100, 760],
+      "multipleInstances": false,
+      "separateProfile": true,
+      "special": {"credentialService": "ohto"}
+    },
+    {
+      "id": "karttahimmeli",
+      "name": "Karttahimmeli",
+      "type": "web",
+      "url": "https://karttahimmeli.netlify.app/",
+      "icon": ":/icons/map.svg",
+      "defaultSize": [1100, 760],
+      "multipleInstances": true,
+      "separateProfile": false,
+      "special": {}
+    },
+    {
+      "id": "ilona-admin",
+      "name": "Ilona Admin",
+      "type": "web",
+      "url": "https://ilona.ad.vapepa.info:10443/",
+      "icon": ":/icons/admin.svg",
+      "defaultSize": [1100, 760],
+      "multipleInstances": false,
+      "separateProfile": true,
+      "special": {"requiresVpn": true, "allowCertificateErrors": false}
+    },
+    {
+      "id": "hbmonitor",
+      "name": "HBMonitor",
+      "type": "web",
+      "url": "https://ilona.ad.vapepa.info/hbmonitor/",
+      "icon": ":/icons/monitor.svg",
+      "defaultSize": [1050, 720],
+      "multipleInstances": false,
+      "separateProfile": true,
+      "special": {"requiresVpn": true, "allowCertificateErrors": false, "deploymentStatus": "planned"}
+    },
+    {
+      "id": "journal",
+      "name": "Tehtäväpäiväkirja",
+      "type": "journal",
+      "url": "",
+      "icon": ":/icons/journal.svg",
+      "defaultSize": [900, 700],
+      "multipleInstances": false,
+      "separateProfile": false,
+      "special": {}
+    }
+  ]
+}

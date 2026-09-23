@@ -1,0 +1,11 @@
+{
+  "repositoryBaseUrl": "https://ilona.ad.vapepa.info/amalia-updates/",
+  "channel": "stable",
+  "publicKey": "../share/amalia/config/update-public-key.pem",
+  "installRoot": "@USER_DATA@",
+  "bootstrapVersion": "2026.08.8",
+  "bootstrapExecutable": "amalia-desktop.exe",
+  "startupTimeoutSeconds": 20,
+  "maxDownloadBytes": 1073741824,
+  "allowLocalTestRepository": false
+}

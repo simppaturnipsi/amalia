@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+AMALIA_UPDATE_PUBLIC_KEY ?=
+
+%:
+	dh $@ --buildsystem=cmake+ninja --builddirectory=build/debian
+
+override_dh_auto_configure:
+	test -n "$(AMALIA_UPDATE_PUBLIC_KEY)"
+	test -f "$(AMALIA_UPDATE_PUBLIC_KEY)"
+	dh_auto_configure --buildsystem=cmake+ninja -- -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr \
+		-DAMALIA_UPDATE_PUBLIC_KEY="$(AMALIA_UPDATE_PUBLIC_KEY)"
+
+override_dh_auto_test:
+	ctest --test-dir build/debian --output-on-failure
+
+override_dh_auto_install:
+	dh_auto_install --buildsystem=cmake+ninja --destdir=debian/tmp

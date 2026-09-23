@@ -1,0 +1,21 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "ubuntu-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/ubuntu-release",
+      "cacheVariables": {"CMAKE_BUILD_TYPE": "Release", "CMAKE_INSTALL_PREFIX": "/usr"}
+    },
+    {
+      "name": "windows-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/windows-release",
+      "cacheVariables": {"CMAKE_BUILD_TYPE": "Release", "CMAKE_INSTALL_PREFIX": "${sourceDir}/stage/windows"}
+    }
+  ],
+  "buildPresets": [
+    {"name": "ubuntu-release", "configurePreset": "ubuntu-release"},
+    {"name": "windows-release", "configurePreset": "windows-release"}
+  ]
+}

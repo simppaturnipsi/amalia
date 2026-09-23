@@ -1,0 +1,8 @@
+usr/bin/amalia-launcher
+usr/bin/amalia-desktop
+usr/share/amalia/config/apps.json
+usr/share/amalia/config/amalia.json
+usr/share/amalia/config/launcher.json
+usr/share/amalia/config/update-public-key.pem
+packaging/fi.vapepa.amalia.desktop usr/share/applications
+desktop/resources/icons/amalia.svg usr/share/icons/hicolor/scalable/apps

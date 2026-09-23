@@ -1,0 +1,30 @@
+[Unit]
+Description=Amalia isolated journal API
+After=network.target
+
+[Service]
+Type=simple
+User=amalia
+Group=amalia
+WorkingDirectory=/opt/amalia/server
+EnvironmentFile=/etc/amalia/amalia-api.env
+ExecStart=/opt/amalia/server/venv/bin/uvicorn amalia_api.main:app --host 127.0.0.1 --port 18080 --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=5s
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+ReadWritePaths=/var/lib/amalia /var/log/amalia
+
+[Install]
+WantedBy=multi-user.target

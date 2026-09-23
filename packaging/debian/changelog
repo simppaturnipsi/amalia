@@ -1,0 +1,52 @@
+amalia (2026.08.8) unstable; urgency=medium
+
+  * Change release numbering to YYYY.MM.N with a monthly build counter.
+
+ -- Vapepa IT <it@example.invalid>  Sat, 29 Aug 2026 21:54:14 +0300
+
+amalia (0.1.0-7) unstable; urgency=medium
+
+  * Use the public Ilona OIDC endpoint for browser authentication.
+  * Keep the internal Ilona Admin shortcut on VPN-only port 10443.
+
+ -- Vapepa IT <it@example.invalid>  Fri, 28 Aug 2026 23:45:00 +0300
+
+amalia (0.1.0-6) unstable; urgency=medium
+
+  * Replace automatic startup authentication with an explicit login dialog.
+  * Do not read or persist OIDC refresh tokens automatically.
+  * Allow starting without authentication and reopening login from Settings.
+
+ -- Vapepa IT <it@example.invalid>  Fri, 28 Aug 2026 22:00:00 +0300
+
+amalia (0.1.0-5) unstable; urgency=medium
+
+  * Fix task journal API routing through the nginx reverse proxy.
+  * Retry loading and syncing the journal when authentication completes.
+
+ -- Vapepa IT <it@example.invalid>  Fri, 21 Aug 2026 21:15:00 +0300
+
+amalia (0.1.0-4) unstable; urgency=medium
+
+  * Add a confirmed Forget me action for Ohto credentials.
+  * Rename the system description action to About.
+
+ -- Vapepa IT <it@example.invalid>  Thu, 20 Aug 2026 15:00:00 +0300
+
+amalia (0.1.0-3) unstable; urgency=medium
+
+  * Replace the application dock with a configurable menu in the top bar.
+
+ -- Vapepa IT <it@example.invalid>  Thu, 20 Aug 2026 14:00:00 +0300
+
+amalia (0.1.0-2) unstable; urgency=medium
+
+  * Add a system description dialog to the Settings menu.
+
+ -- Vapepa IT <it@example.invalid>  Thu, 20 Aug 2026 13:00:00 +0300
+
+amalia (0.1.0-1) unstable; urgency=medium
+
+  * Initial isolated Amalia implementation.
+
+ -- Vapepa IT <it@example.invalid>  Thu, 20 Aug 2026 12:00:00 +0300

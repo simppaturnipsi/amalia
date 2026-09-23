@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+  <DisplayName>Amalia Desktop</DisplayName>
+  <Description>Amalia Launcher, Desktop, Qt 6 WebEngine and secure credential integration.</Description>
+  <Version>2026.08.8</Version>
+  <ReleaseDate>2026-08-29</ReleaseDate>
+  <Default>true</Default>
+  <ForcedInstallation>true</ForcedInstallation>
+  <Essential>true</Essential>
+  <Script>installscript.qs</Script>
+</Package>

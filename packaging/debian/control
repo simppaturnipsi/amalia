@@ -1,0 +1,15 @@
+Source: amalia
+Section: utils
+Priority: optional
+Maintainer: Vapepa IT <it@example.invalid>
+Build-Depends: debhelper-compat (= 13), cmake (>= 3.24), ninja-build, g++,
+ qt6-base-dev, qt6-webengine-dev, qt6-websockets-dev, qtkeychain-qt6-dev, libssl-dev
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: amalia
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqt6sql6-sqlite, libqt6keychain1, unzip
+Description: Amalia Vapepa desktop workspace and signed update launcher
+ Modular Qt 6 desktop workspace for Ohto, Karttahimmeli, Ilona Admin,
+ HBMonitor and the append-only Amalia task journal.

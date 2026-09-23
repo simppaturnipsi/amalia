@@ -1,0 +1,44 @@
+# ADDITIVE EXAMPLE ONLY. Include these locations inside the existing HTTPS
+# server block after reviewing them. Do not replace/refactor existing locations.
+
+location /amalia/api/ {
+    # Keep the public /amalia/api/v1/... path aligned with FastAPI's
+    # /api/v1/... routes. Using /api/v1/ here would duplicate the v1 segment.
+    proxy_pass http://127.0.0.1:18080/api/;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Request-ID $request_id;
+    proxy_set_header Authorization $http_authorization;
+    proxy_connect_timeout 5s;
+    proxy_read_timeout 60s;
+    client_max_body_size 128k;
+}
+
+location = /amalia/health {
+    proxy_pass http://127.0.0.1:18080/health;
+    proxy_set_header Host $host;
+}
+
+location /amalia/ws/ {
+    proxy_pass http://127.0.0.1:18080/ws/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header Authorization $http_authorization;
+    proxy_read_timeout 3600s;
+}
+
+location /amalia-updates/ {
+    alias /srv/amalia/updates/;
+    autoindex off;
+    limit_except GET HEAD { deny all; }
+    add_header X-Content-Type-Options nosniff always;
+    add_header Cache-Control "public, max-age=300";
+}
+
+# Kerberos domain SSO variant (only if the existing reverse proxy already has
+# a reviewed SPNEGO configuration): protect the API/WS locations with that
+# mechanism, strip client-supplied identity headers, then inject X-Remote-User,
+# X-Amalia-* identity/role headers and X-Amalia-Proxy-Secret internally.
