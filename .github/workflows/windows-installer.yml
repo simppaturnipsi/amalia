@@ -46,7 +46,7 @@ jobs:
       - name: Build and install QtKeychain
         shell: pwsh
         run: |
-          git clone --depth 1 --branch v0.15.0 https://github.com/frankosterfeld/qtkeychain.git qtkeychain-src
+          git clone --depth 1 --branch v0.14.0 https://github.com/frankosterfeld/qtkeychain.git qtkeychain-src
           cmake -S qtkeychain-src -B qtkeychain-build -G Ninja `
             -DBUILD_WITH_QT6=ON `
             -DBUILD_TEST_APPLICATION=OFF `
