@@ -26,7 +26,7 @@ jobs:
           target: desktop
           arch: win64_msvc2022_64
           modules: qtwebengine qtwebsockets qtpositioning qtwebchannel
-          tools: tools_ifw,qt.tools.ifw.48 tools_openssl_x64
+          tools: tools_ifw,qt.tools.ifw.47 tools_openssl_x64
           cache: true
 
       - name: Locate OpenSSL and installer tools
