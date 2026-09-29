@@ -84,6 +84,7 @@ jobs:
           Copy-Item installer/config/launcher-windows.json stage/windows/share/amalia/config/launcher.json -Force
           Copy-Item "$env:OPENSSL_ROOT_DIR/bin/*.dll" stage/windows/bin -Force
           Copy-Item "qtkeychain-install/bin/*.dll" stage/windows/bin -Force
+          Copy-Item "qtkeychain-install/bin/*.dll" "$env:QT_ROOT_DIR/bin" -Force
           $keychainBin = (Resolve-Path "qtkeychain-install/bin").Path
           $env:PATH = "$keychainBin;$env:OPENSSL_ROOT_DIR\bin;$env:PATH"
           windeployqt --release --compiler-runtime -webenginecore -webenginewidgets -webchannel -positioning -sql --dir stage/windows/bin stage/windows/bin/amalia-desktop.exe
