@@ -67,6 +67,9 @@ def test_release_build_requires_keychain_and_packages_update_key():
 
 def test_windows_installer_deploys_and_verifies_qt_runtime_and_webengine():
     workflow = (ROOT / ".github/workflows/windows-installer.yml").read_text(encoding="utf-8")
+    assert "Win64OpenSSL-3_5_9.exe" in workflow
+    assert "Get-FileHash $installer -Algorithm SHA256" in workflow
+    assert "5fe338c81d62515df7292f16542a0eef2a29db3efc023cd5a8c08ec3c97027ae" in workflow
     assert "-webenginecore -webenginewidgets -webchannel -positioning -sql" in workflow
     assert 'plugins/sqldrivers/qsqlite.dll' in workflow
     assert '"Qt6WebEngineCore.dll"' in workflow

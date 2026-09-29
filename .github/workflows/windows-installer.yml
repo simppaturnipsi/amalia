@@ -29,9 +29,16 @@ jobs:
           tools: tools_ifw,qt.tools.ifw.47
           cache: true
 
-      - name: Install OpenSSL
+      - name: Install verified OpenSSL 3.5.9
         shell: pwsh
-        run: choco install openssl --no-progress -y
+        run: |
+          $installer = Join-Path $env:RUNNER_TEMP "Win64OpenSSL-3_5_9.exe"
+          Invoke-WebRequest -Uri "https://slproweb.com/download/Win64OpenSSL-3_5_9.exe" -OutFile $installer
+          $expectedHash = "5fe338c81d62515df7292f16542a0eef2a29db3efc023cd5a8c08ec3c97027ae"
+          $actualHash = (Get-FileHash $installer -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualHash -ne $expectedHash) { throw "OpenSSL installer SHA-256 mismatch" }
+          $process = Start-Process -FilePath $installer -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-" -Wait -PassThru
+          if ($process.ExitCode -ne 0) { throw "OpenSSL installer failed with exit code $($process.ExitCode)" }
 
       - name: Locate OpenSSL and installer tools
         shell: pwsh
