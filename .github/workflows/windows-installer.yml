@@ -93,8 +93,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw "windeployqt failed for amalia-launcher.exe ($LASTEXITCODE)" }
           $sqlPlugin = Join-Path $env:QT_ROOT_DIR "plugins/sqldrivers/qsqlite.dll"
           if (-not (Test-Path $sqlPlugin)) { throw "Qt SQLite driver was not found: $sqlPlugin" }
-          New-Item -ItemType Directory -Force stage/windows/bin/plugins/sqldrivers | Out-Null
-          Copy-Item $sqlPlugin stage/windows/bin/plugins/sqldrivers/qsqlite.dll -Force
+          New-Item -ItemType Directory -Force stage/windows/bin/sqldrivers | Out-Null
+          Copy-Item $sqlPlugin stage/windows/bin/sqldrivers/qsqlite.dll -Force
 
           $bin = (Resolve-Path "stage/windows/bin").Path
           $requiredLibraries = @(
@@ -105,7 +105,7 @@ jobs:
           foreach ($library in $requiredLibraries) {
             if (-not (Test-Path (Join-Path $bin $library))) { throw "Qt runtime library missing: $library" }
           }
-          foreach ($plugin in @("plugins/platforms/qwindows.dll", "plugins/sqldrivers/qsqlite.dll")) {
+          foreach ($plugin in @("platforms/qwindows.dll", "sqldrivers/qsqlite.dll")) {
             if (-not (Test-Path (Join-Path $bin $plugin))) { throw "Qt runtime plugin missing: $plugin" }
           }
           foreach ($runtime in @("QtWebEngineProcess.exe", "icudtl.dat", "qtwebengine_resources.pak")) {

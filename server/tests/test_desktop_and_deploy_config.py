@@ -74,9 +74,9 @@ def test_windows_installer_deploys_and_verifies_qt_runtime_and_webengine():
     assert workflow.index('Copy-Item "qtkeychain-install/bin/*.dll"') < workflow.index("windeployqt --release", workflow.index("Deploy Windows runtime"))
     assert '"$env:QT_ROOT_DIR/bin"' in workflow
     assert 'if ($LASTEXITCODE -ne 0) { throw "windeployqt failed' in workflow
-    assert 'plugins/sqldrivers/qsqlite.dll' in workflow
+    assert 'sqldrivers/qsqlite.dll' in workflow
     assert '"Qt6WebEngineCore.dll"' in workflow
-    assert '"plugins/sqldrivers/qsqlite.dll"' in workflow
+    assert '"sqldrivers/qsqlite.dll"' in workflow
     assert '"QtWebEngineProcess.exe"' in workflow
     assert "Qt WebEngine locale resources are missing" in workflow
     assert "Qt library was not included in the installer payload" in workflow

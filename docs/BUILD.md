@@ -70,7 +70,7 @@ windeployqt -webenginecore -webenginewidgets -webchannel -positioning -sql `
 windeployqt stage\windows\bin\amalia-launcher.exe
 ```
 
-Ensure `bin\plugins\sqldrivers\qsqlite.dll` is deployed in addition to
+Ensure `bin\sqldrivers\qsqlite.dll` is deployed in addition to
 QtKeychain and its backend dependencies. The Windows installer workflow checks
 the Qt libraries, platform/SQLite plugins, WebEngine process, resource packs
 and locale files are present in the installer payload. Then follow
