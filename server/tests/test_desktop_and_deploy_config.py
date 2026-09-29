@@ -65,6 +65,17 @@ def test_release_build_requires_keychain_and_packages_update_key():
     assert not (ROOT / "packaging/debian/postinst").exists()
 
 
+def test_windows_installer_deploys_and_verifies_qt_runtime_and_webengine():
+    workflow = (ROOT / ".github/workflows/windows-installer.yml").read_text(encoding="utf-8")
+    assert "-webenginecore -webenginewidgets -webchannel -positioning -sql" in workflow
+    assert 'plugins/sqldrivers/qsqlite.dll' in workflow
+    assert '"Qt6WebEngineCore.dll"' in workflow
+    assert '"plugins/sqldrivers/qsqlite.dll"' in workflow
+    assert '"QtWebEngineProcess.exe"' in workflow
+    assert "Qt WebEngine locale resources are missing" in workflow
+    assert "Qt library was not included in the installer payload" in workflow
+
+
 def test_systemd_api_is_localhost_only_and_dedicated_user():
     unit = (ROOT / "deploy/systemd/amalia-api.service").read_text(encoding="utf-8")
     assert "User=amalia" in unit and "Group=amalia" in unit

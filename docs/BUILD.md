@@ -65,13 +65,17 @@ cmake --preset windows-release `
   -DAMALIA_UPDATE_PUBLIC_KEY=C:\secure\update-public-key.pem
 cmake --build --preset windows-release
 cmake --install build\windows-release
-windeployqt --webengine stage\windows\bin\amalia-desktop.exe
+windeployqt -webenginecore -webenginewidgets -webchannel -positioning -sql `
+  stage\windows\bin\amalia-desktop.exe
 windeployqt stage\windows\bin\amalia-launcher.exe
 ```
 
-Copy QtKeychain and its backend dependencies, then follow `installer/README.md`
-to produce `AmaliaSetup.exe`. Sign the installer and both executables with the
-organization's Windows code-signing certificate.
+Ensure `bin\plugins\sqldrivers\qsqlite.dll` is deployed in addition to
+QtKeychain and its backend dependencies. The Windows installer workflow checks
+the Qt libraries, platform/SQLite plugins, WebEngine process, resource packs
+and locale files are present in the installer payload. Then follow
+`installer/README.md` to produce `AmaliaSetup.exe`. Sign the installer and both
+executables with the organization's Windows code-signing certificate.
 
 ## Qt checks
 

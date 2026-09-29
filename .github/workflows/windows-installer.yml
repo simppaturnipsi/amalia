@@ -75,10 +75,41 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item installer/config/launcher-windows.json stage/windows/share/amalia/config/launcher.json -Force
-          windeployqt --release --compiler-runtime --dir stage/windows/bin stage/windows/bin/amalia-desktop.exe
+          windeployqt --release --compiler-runtime -webenginecore -webenginewidgets -webchannel -positioning -sql --dir stage/windows/bin stage/windows/bin/amalia-desktop.exe
           windeployqt --release --compiler-runtime --dir stage/windows/bin stage/windows/bin/amalia-launcher.exe
           Copy-Item "$env:OPENSSL_ROOT_DIR/bin/*.dll" stage/windows/bin -Force
           Copy-Item "qtkeychain-install/bin/*.dll" stage/windows/bin -Force
+          $sqlPlugin = Join-Path $env:QT_ROOT_DIR "plugins/sqldrivers/qsqlite.dll"
+          if (-not (Test-Path $sqlPlugin)) { throw "Qt SQLite driver was not found: $sqlPlugin" }
+          New-Item -ItemType Directory -Force stage/windows/bin/plugins/sqldrivers | Out-Null
+          Copy-Item $sqlPlugin stage/windows/bin/plugins/sqldrivers/qsqlite.dll -Force
+
+          $bin = (Resolve-Path "stage/windows/bin").Path
+          $requiredLibraries = @(
+            "Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll", "Qt6Network.dll",
+            "Qt6Sql.dll", "Qt6WebChannel.dll", "Qt6WebEngineCore.dll",
+            "Qt6WebEngineWidgets.dll", "Qt6WebSockets.dll"
+          )
+          foreach ($library in $requiredLibraries) {
+            if (-not (Test-Path (Join-Path $bin $library))) { throw "Qt runtime library missing: $library" }
+          }
+          foreach ($plugin in @("plugins/platforms/qwindows.dll", "plugins/sqldrivers/qsqlite.dll")) {
+            if (-not (Test-Path (Join-Path $bin $plugin))) { throw "Qt runtime plugin missing: $plugin" }
+          }
+          foreach ($runtime in @("QtWebEngineProcess.exe", "icudtl.dat", "qtwebengine_resources.pak")) {
+            if (-not (Get-ChildItem -Path $bin -Filter $runtime -File -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1)) {
+              throw "Qt WebEngine runtime file missing: $runtime"
+            }
+          }
+          if (-not (Get-ChildItem -Path $bin -Filter "*.pak" -File -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.Directory.Name -like "qtwebengine_locales*" } | Select-Object -First 1)) {
+            throw "Qt WebEngine locale resources are missing"
+          }
+          if (-not (Get-ChildItem -Path $bin -Filter "*keychain*.dll" -File | Select-Object -First 1)) {
+            throw "QtKeychain runtime library is missing"
+          }
+          foreach ($library in @("libcrypto-3-x64.dll", "libssl-3-x64.dll")) {
+            if (-not (Test-Path (Join-Path $bin $library))) { throw "OpenSSL runtime library missing: $library" }
+          }
 
       - name: Create installer
         shell: pwsh
@@ -87,6 +118,14 @@ jobs:
           if (Test-Path $data) { Remove-Item $data -Recurse -Force }
           New-Item -ItemType Directory -Path $data | Out-Null
           Copy-Item "stage/windows/*" $data -Recurse -Force
+          foreach ($library in @("Qt6Core.dll", "Qt6WebEngineCore.dll", "Qt6WebEngineWidgets.dll")) {
+            if (-not (Get-ChildItem -Path $data -Filter $library -File -Recurse | Select-Object -First 1)) {
+              throw "Qt library was not included in the installer payload: $library"
+            }
+          }
+          if (-not (Get-ChildItem -Path $data -Filter "QtWebEngineProcess.exe" -File -Recurse | Select-Object -First 1)) {
+            throw "Qt WebEngine process was not included in the installer payload"
+          }
           & $env:BINARYCREATOR -c installer/config/config.xml -p installer/packages AmaliaSetup.exe
           if (-not (Test-Path AmaliaSetup.exe)) { throw "AmaliaSetup.exe was not created" }
           Get-FileHash AmaliaSetup.exe -Algorithm SHA256
