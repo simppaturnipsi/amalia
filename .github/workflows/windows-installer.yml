@@ -82,10 +82,14 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item installer/config/launcher-windows.json stage/windows/share/amalia/config/launcher.json -Force
-          windeployqt --release --compiler-runtime -webenginecore -webenginewidgets -webchannel -positioning -sql --dir stage/windows/bin stage/windows/bin/amalia-desktop.exe
-          windeployqt --release --compiler-runtime --dir stage/windows/bin stage/windows/bin/amalia-launcher.exe
           Copy-Item "$env:OPENSSL_ROOT_DIR/bin/*.dll" stage/windows/bin -Force
           Copy-Item "qtkeychain-install/bin/*.dll" stage/windows/bin -Force
+          $keychainBin = (Resolve-Path "qtkeychain-install/bin").Path
+          $env:PATH = "$keychainBin;$env:OPENSSL_ROOT_DIR\bin;$env:PATH"
+          windeployqt --release --compiler-runtime -webenginecore -webenginewidgets -webchannel -positioning -sql --dir stage/windows/bin stage/windows/bin/amalia-desktop.exe
+          if ($LASTEXITCODE -ne 0) { throw "windeployqt failed for amalia-desktop.exe ($LASTEXITCODE)" }
+          windeployqt --release --compiler-runtime --dir stage/windows/bin stage/windows/bin/amalia-launcher.exe
+          if ($LASTEXITCODE -ne 0) { throw "windeployqt failed for amalia-launcher.exe ($LASTEXITCODE)" }
           $sqlPlugin = Join-Path $env:QT_ROOT_DIR "plugins/sqldrivers/qsqlite.dll"
           if (-not (Test-Path $sqlPlugin)) { throw "Qt SQLite driver was not found: $sqlPlugin" }
           New-Item -ItemType Directory -Force stage/windows/bin/plugins/sqldrivers | Out-Null

@@ -71,6 +71,8 @@ def test_windows_installer_deploys_and_verifies_qt_runtime_and_webengine():
     assert "Get-FileHash $installer -Algorithm SHA256" in workflow
     assert "5fe338c81d62515df7292f16542a0eef2a29db3efc023cd5a8c08ec3c97027ae" in workflow
     assert "-webenginecore -webenginewidgets -webchannel -positioning -sql" in workflow
+    assert workflow.index('Copy-Item "qtkeychain-install/bin/*.dll"') < workflow.index("windeployqt --release", workflow.index("Deploy Windows runtime"))
+    assert 'if ($LASTEXITCODE -ne 0) { throw "windeployqt failed' in workflow
     assert 'plugins/sqldrivers/qsqlite.dll' in workflow
     assert '"Qt6WebEngineCore.dll"' in workflow
     assert '"plugins/sqldrivers/qsqlite.dll"' in workflow
